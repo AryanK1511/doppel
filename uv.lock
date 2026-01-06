@@ -232,6 +232,23 @@ wheels = [
 ]
 
 [[package]]
+name = "elevenlabs"
+version = "2.28.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "requests" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/98/62/83dcec5e3c10a3e9fc20200ef5d4af9448de5c7fc9e176b29cec515bafca/elevenlabs-2.28.0.tar.gz", hash = "sha256:6b5bc8a50594cb8682e5bc35b0b0b90f310896e8ccf9555aa8fd2b8506eb5a57", size = 438731 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/41/a7/be563bde0dbacf5707227d9f0f34cf7d0f50346e1cf6f53d0a6218f040cc/elevenlabs-2.28.0-py3-none-any.whl", hash = "sha256:299e0145d25480fc3df4a9fcfb84a0d8963e1c89883d2d9d22ddcfd9b8d61f6a", size = 1171079 },
+]
+
+[[package]]
 name = "executing"
 version = "2.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1330,6 +1347,7 @@ name = "viralens"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "elevenlabs" },
     { name = "ipykernel" },
     { name = "langchain", extra = ["google-genai"] },
     { name = "langgraph" },
@@ -1339,6 +1357,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "elevenlabs", specifier = ">=2.28.0" },
     { name = "ipykernel", specifier = ">=7.1.0" },
     { name = "langchain", extras = ["google-genai"], specifier = ">=1.2.0" },
     { name = "langgraph", specifier = ">=1.0.5" },
