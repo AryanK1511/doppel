@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 
 from elevenlabs.client import ElevenLabs
-from elevenlabs.play import play
 
 load_dotenv()
 
@@ -18,4 +17,6 @@ audio = elevenlabs.text_to_speech.convert(
     output_format="mp3_44100_128",
 )
 
-play(audio)
+with open("output.mp3", "wb") as f:
+    for chunk in audio:
+        f.write(chunk)
