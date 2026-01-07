@@ -1,4 +1,5 @@
 import socket
+from contextlib import asynccontextmanager
 from importlib.metadata import version
 
 from fastapi import FastAPI
@@ -7,6 +8,16 @@ from fastapi.responses import JSONResponse
 from src.common.constants import PROJECT_TITLE
 from src.common.logger import logger, setup_logging
 from src.common.utils.exception_handlers import register_exception_handlers
+from src.database.mongodb.mongodb_client import mongodb_client
+from src.module.audio.audio_controller import router as audio_router
+from src.module.reel.controller.reel_controller import router as reel_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await mongodb_client.connect()
+    yield
+    await mongodb_client.disconnect()
 
 
 def create_app() -> FastAPI:
@@ -28,6 +39,7 @@ def create_app() -> FastAPI:
         summary="Viralens Backend Service API",
         description="Viralens Backend Service API",
         version=app_version,
+        lifespan=lifespan,
     )
 
     app.add_middleware(
@@ -40,6 +52,8 @@ def create_app() -> FastAPI:
 
     register_exception_handlers(app)
 
+    app.include_router(audio_router)
+    app.include_router(reel_router)
     return app
 
 
