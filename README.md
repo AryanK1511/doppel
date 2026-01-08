@@ -2,4 +2,4 @@
 
 ## Author
 
-[Aryan Khurana](https://github.com/AryanK1511)
+[Aryan Khurana](https://github.com/**AryanK1511**)
