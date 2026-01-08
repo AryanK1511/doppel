@@ -149,9 +149,9 @@ Your scripts must:
     script_generator_user_prompt = f"""
 Based on this news article and additional research, create a viral TikTok script for a 30-second video:
 
-Title: {selected_article['title']}
-Content: {selected_article['content']}
-Reason for viral potential: {selected_article['reason']}
+Title: {selected_article["title"]}
+Content: {selected_article["content"]}
+Reason for viral potential: {selected_article["reason"]}
 {research_context}
 
 Generate a script that will maximize engagement and go viral.

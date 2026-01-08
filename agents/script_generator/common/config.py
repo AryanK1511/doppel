@@ -5,6 +5,8 @@ class AppSettings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     PYTHON_ENV: str = "PROD"
     AGENT_URL: str
+    GOOGLE_API_KEY: str
+    TAVILY_API_KEY: str
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
 

@@ -2,8 +2,8 @@ from a2a.server.apps import A2AFastAPIApplication
 from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
-from ai.agent import ContentStrategistAgent
-from ai.agent_executor import ContentStrategistAgentExecutor
+from ai.agent import ScriptGeneratorAgent
+from ai.agent_executor import ScriptGeneratorAgentExecutor
 from common.constants import PROJECT_TITLE
 from common.logger import setup_logging
 from common.utils.exception_handlers import register_exception_handlers
@@ -17,19 +17,19 @@ def create_app() -> FastAPI:
     setup_logging()
 
     skill = AgentSkill(
-        id="content-strategist",
-        name="Content Strategist",
-        description="A content strategist that helps with content creation for short-form content like TikTok reels, Instagram posts, and YouTube videos.",
-        tags=["content", "strategist", "creation"],
+        id="script-generator",
+        name="Script Generator",
+        description="A script generator that creates scripts for short-form video content like TikTok reels, Instagram posts, and YouTube videos.",
+        tags=["script", "generator", "content"],
         examples=[
-            "I need content strategy for a TikTok reel about the latest trends in AI",
-            "I need a content strategy for an Instagram reel about the top 5 most popular movies of 2025",
+            "Create a script for a TikTok reel about the latest trends in AI",
+            "Generate a script for an Instagram reel about the top 5 most popular movies of 2025",
         ],
     )
 
     agent_card = AgentCard(
-        name="content-strategist",
-        description="A content strategist that helps with content creation for short-form content like TikTok reels, Instagram posts, and YouTube videos.",
+        name="script-generator",
+        description="A script generator that creates scripts for short-form video content like TikTok reels, Instagram posts, and YouTube videos.",
         url="http://localhost:8000/",
         default_input_modes=["text"],
         default_output_modes=["text"],
@@ -39,7 +39,7 @@ def create_app() -> FastAPI:
     )
 
     request_handler = DefaultRequestHandler(
-        agent_executor=ContentStrategistAgentExecutor(ContentStrategistAgent()),
+        agent_executor=ScriptGeneratorAgentExecutor(ScriptGeneratorAgent()),
         task_store=InMemoryTaskStore(),
     )
 
@@ -52,8 +52,8 @@ def create_app() -> FastAPI:
 
     app.title = PROJECT_TITLE
     app.version = "0.1.0"
-    app.summary = "Content Strategist Agent API"
-    app.description = "Content Strategist Agent API"
+    app.summary = "Script Generator Agent API"
+    app.description = "Script Generator Agent API"
 
     app.add_middleware(
         CORSMiddleware,
