@@ -1,0 +1,17 @@
+from a2a.server.agent_execution import RequestContext
+from a2a.server.events import EventQueue
+from a2a.utils import new_agent_text_message
+from ai.agent import ContentStrategistAgent
+
+
+class ContentStrategistAgentExecutor:
+    def __init__(self, agent: ContentStrategistAgent):
+        self.agent = agent
+
+    async def execute(self, context: RequestContext, event_queue: EventQueue) -> str:
+        result = await self.agent.invoke()
+        await event_queue.enqueue_event(new_agent_text_message(result))
+        return result
+
+    async def cancel(self, context: RequestContext, event_queue: EventQueue) -> None:
+        raise Exception("Cancel not supported")
