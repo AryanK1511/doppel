@@ -20,9 +20,8 @@ async def create_agent(
     try:
         result = await agent_service.create_agent(
             username=request.username,
-            name=request.name,
-            bio=request.bio,
-            type=request.type,
+            agent_type=request.type,
+            profile=request.profile,
         )
         return Response.success(
             message="Agent created successfully",
@@ -98,9 +97,8 @@ async def update_agent(
         result = await agent_service.update_agent(
             agent_id=agent_id,
             username=request.username,
-            name=request.name,
-            bio=request.bio,
-            type=request.type,
+            agent_type=request.type,
+            profile=request.profile,
         )
         return Response.success(
             message="Agent updated successfully",

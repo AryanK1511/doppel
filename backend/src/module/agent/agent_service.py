@@ -4,16 +4,32 @@ from typing import Any, Optional
 from bson import ObjectId
 from src.common.logger import logger
 from src.database.mongodb.mongodb_client import MongoDBClient
+from src.module.agent.agent_schema import (
+    RecruiterProfile,
+    CandidateProfile,
+    UpdateRecruiterProfile,
+    UpdateCandidateProfile,
+)
 
 
 class AgentService:
     def __init__(self, mongodb_client: MongoDBClient):
         self.mongodb_client = mongodb_client
 
+    def _extract_name_and_bio(self, profile: dict, agent_type: str) -> tuple[str, str]:
+        if agent_type == "recruiter":
+            return profile.get("name", ""), profile.get("bio", "")
+        elif agent_type == "candidate":
+            personal_info = profile.get("personal_info", {})
+            name = personal_info.get("full_name", "")
+            bio = profile.get("professional_summary", "")
+            return name, bio
+        return "", ""
+
     async def create_agent(
-        self, username: str, name: str, bio: str, type: str
+        self, username: str, agent_type: str, profile: dict
     ) -> dict[str, Any]:
-        if type not in ["candidate", "recruiter"]:
+        if agent_type not in ["candidate", "recruiter"]:
             raise ValueError("Type must be either 'candidate' or 'recruiter'")
 
         existing_agent = await self.mongodb_client.agents.find_one(
@@ -22,11 +38,25 @@ class AgentService:
         if existing_agent:
             raise ValueError(f"Agent with username '{username}' already exists")
 
+        if agent_type == "recruiter":
+            try:
+                RecruiterProfile(**profile)
+            except Exception as e:
+                raise ValueError(f"Invalid recruiter profile: {str(e)}")
+        elif agent_type == "candidate":
+            try:
+                CandidateProfile(**profile)
+            except Exception as e:
+                raise ValueError(f"Invalid candidate profile: {str(e)}")
+
+        name, bio = self._extract_name_and_bio(profile, agent_type)
+
         agent_doc = {
             "username": username,
             "name": name,
             "bio": bio,
-            "type": type,
+            "type": agent_type,
+            "profile": profile,
             "created_at": datetime.utcnow(),
         }
         result = await self.mongodb_client.agents.insert_one(agent_doc)
@@ -42,6 +72,7 @@ class AgentService:
             "name": agent_doc["name"],
             "bio": agent_doc["bio"],
             "type": agent_doc["type"],
+            "profile": agent_doc["profile"],
             "created_at": agent_doc["created_at"].isoformat(),
         }
 
@@ -75,12 +106,15 @@ class AgentService:
         if not agent:
             raise ValueError(f"Agent with id {agent_id} not found")
 
+        profile = agent.get("profile", {})
+
         return {
             "agent_id": str(agent["_id"]),
             "username": agent["username"],
             "name": agent["name"],
             "bio": agent["bio"],
             "type": agent["type"],
+            "profile": profile,
             "created_at": agent["created_at"].isoformat(),
         }
 
@@ -88,11 +122,10 @@ class AgentService:
         self,
         agent_id: str,
         username: Optional[str],
-        name: Optional[str],
-        bio: Optional[str],
-        type: Optional[str],
+        agent_type: Optional[str],
+        profile: Optional[dict],
     ) -> dict[str, Any]:
-        if type and type not in ["candidate", "recruiter"]:
+        if agent_type and agent_type not in ["candidate", "recruiter"]:
             raise ValueError("Type must be either 'candidate' or 'recruiter'")
 
         try:
@@ -100,22 +133,58 @@ class AgentService:
         except Exception:
             raise ValueError(f"Invalid agent ID format: {agent_id}")
 
+        existing_agent = await self.mongodb_client.agents.find_one({"_id": object_id})
+        if not existing_agent:
+            raise ValueError(f"Agent with id {agent_id} not found")
+
+        current_type = existing_agent.get("type")
+        final_type = agent_type if agent_type else current_type
+
         if username is not None:
-            existing_agent = await self.mongodb_client.agents.find_one(
+            duplicate_agent = await self.mongodb_client.agents.find_one(
                 {"username": username, "_id": {"$ne": object_id}}
             )
-            if existing_agent:
+            if duplicate_agent:
                 raise ValueError(f"Agent with username '{username}' already exists")
 
         update_data = {}
         if username is not None:
             update_data["username"] = username
-        if name is not None:
+        if agent_type is not None:
+            update_data["type"] = agent_type
+
+        if profile is not None:
+            if agent_type is None:
+                current_profile = existing_agent.get("profile", {})
+                merged_profile = {**current_profile, **profile}
+            else:
+                merged_profile = profile
+
+            if final_type == "recruiter":
+                try:
+                    if agent_type is None:
+                        UpdateRecruiterProfile(**profile)
+                        RecruiterProfile(**merged_profile)
+                    else:
+                        RecruiterProfile(**merged_profile)
+                except Exception as e:
+                    raise ValueError(f"Invalid recruiter profile: {str(e)}")
+            elif final_type == "candidate":
+                try:
+                    CandidateProfile(**merged_profile)
+                except Exception as e:
+                    raise ValueError(f"Invalid candidate profile: {str(e)}")
+
+            update_data["profile"] = merged_profile
+            name, bio = self._extract_name_and_bio(merged_profile, final_type)
             update_data["name"] = name
-        if bio is not None:
             update_data["bio"] = bio
-        if type is not None:
-            update_data["type"] = type
+        elif agent_type is not None:
+            name, bio = self._extract_name_and_bio(
+                existing_agent.get("profile", {}), final_type
+            )
+            update_data["name"] = name
+            update_data["bio"] = bio
 
         if not update_data:
             raise ValueError("At least one field must be provided for update")
@@ -137,6 +206,7 @@ class AgentService:
             "name": agent["name"],
             "bio": agent["bio"],
             "type": agent["type"],
+            "profile": agent.get("profile", {}),
             "created_at": agent["created_at"].isoformat(),
         }
 
