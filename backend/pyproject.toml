@@ -1,0 +1,30 @@
+[project]
+name = "viralens-backend-service"
+version = "0.1.0"
+description = "Viralens Backend Service"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic-settings>=2.10.1",
+    "fastapi[standard]>=0.116.1",
+    "colorama>=0.4.6",
+    "httpx>=0.25.0",
+    "python-dotenv>=1.1.1",
+    "assemblyai>=0.48.4",
+    "elevenlabs>=2.28.0",
+    "fal-client>=0.11.0",
+    "langchain[google-genai]>=1.2.0",
+    "langgraph>=1.0.5",
+    "moviepy>=1.0.3",
+    "python-dotenv>=1.2.1",
+    "requests>=2.31.0",
+    "tavily-python>=0.5.0",
+    "motor>=3.6.0",
+    "google-cloud-storage>=2.18.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "ruff>=0.12.10",
+]
