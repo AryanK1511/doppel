@@ -10,6 +10,7 @@ from src.common.logger import logger, setup_logging
 from src.common.utils.exception_handlers import register_exception_handlers
 from src.common.utils.response import Response
 from src.database.mongodb.mongodb_client import mongodb_client
+from src.module.agent.agent_controller import router as agent_router
 
 
 @asynccontextmanager
@@ -50,6 +51,8 @@ def create_app() -> FastAPI:
     )
 
     register_exception_handlers(app)
+
+    app.include_router(agent_router)
 
     return app
 
