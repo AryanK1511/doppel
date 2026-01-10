@@ -1,0 +1,57 @@
+================================================================================
+NETWORKING SESSION - SCREENING CONVERSATION
+================================================================================
+
+
+[Brodie Moss - Recruiter]: Hey there! I'm Brodie, I focus on Platform Technology and RBCx digital solutions here at RBC. What kind of development work have you been focusing on lately, maybe specifically within the PHP or WordPress space?
+
+
+[Aryan Khurana - Candidate]: Nice to meet you, Brodie! I’m actually on the AI team here at RBC right now, focusing on building multi-agent systems and intelligent automation with FastAPI. While I have intermediate experience with PHP, I’ve been leaning more into custom AI architectures and scalable backend solutions lately rather than the WordPress space.
+
+
+[Brodie Moss - Recruiter]: That AI work sounds fascinating, especially with FastAPI. For this specific role at RBCx, we’re really focused on the intersection of high-scale WordPress VIP and frontend excellence. How much experience do you have translating Figma designs into responsive, WCAG-compliant interfaces?
+
+
+[Aryan Khurana - Candidate]: I use Figma regularly to architect the UI for my projects like Rezzy and Viralens before building them out in React or Vue. I'm very comfortable translating designs into responsive, production-ready interfaces, and I always prioritize accessibility and modern web standards in my frontend work.
+
+
+[Brodie Moss - Recruiter]: Good to hear you're comfortable with Figma and accessibility. Since this role is heavily centered on WordPress VIP, have you worked with high-scale PHP architectures or custom VIP-compatible themes before?
+
+
+[Aryan Khurana - Candidate]: I haven't worked with WordPress VIP specifically, but I have a solid foundation in PHP from building custom full-stack solutions. Most of my recent high-scale architecture work has focused on FastAPI and MongoDB for my SaaS projects and enterprise AI systems here at RBC.
+
+
+[Brodie Moss - Recruiter]: I appreciate the transparency on the VIP side. Since the RBCx team relies heavily on Git, Jenkins, and CI/CD for our deployments, how have you integrated those DevOps practices into your current AI or SaaS workflows?
+
+
+[Aryan Khurana - Candidate]: I use Git and GitHub Actions daily to manage automated deployments for my SaaS projects like Rezzy. At RBC, I'm already well-integrated into our enterprise CI/CD pipelines, using Jenkins and Docker to ensure our AI services are stable and production-ready.
+
+
+[Brodie Moss - Recruiter]: That's a huge plus that you're already familiar with our enterprise Jenkins and Docker environment. Since we use Tailwind CSS heavily for our frontend architecture, have you worked with that much, and how do you usually handle troubleshooting RESTful API integrations?
+
+
+[Aryan Khurana - Candidate]: I used Tailwind CSS to build out the entire frontend for Rezzy, so I’m very comfortable with that utility-first approach. For troubleshooting APIs, I typically use Postman for manual testing and set up detailed logging in FastAPI to quickly isolate any issues in the data flow.
+
+
+[Brodie Moss - Recruiter]: I really appreciate the insight into your background; you've clearly got a strong technical foundation in AI and modern frontend tools. While your DevOps and Tailwind skills are spot on, we're specifically looking for deep expertise in WordPress VIP and high-scale PHP for this particular squad.
+
+
+1. Minimum 4 years PHP/JS/WP VIP: ✗ (Intermediate PHP, no VIP experience)
+2. Figma/Tailwind: ✓ (Regularly uses Figma and built Rezzy with Tailwind)
+3. WCAG AA: ✓ (Prioritizes accessibility and modern standards)
+4. RESTful API: ✓ (Uses Postman and logging for troubleshooting)
+5. DevOps: ✓ (Already using RBC's Jenkins/Docker/Git pipelines)
+6. UI/UX Translation: ✓ (Architects UI in Figma before building)
+7. Clean code: ✓ (Follows best practices in enterprise environment)
+8. Problem-solving: ✓ (Strategic approach to API data flow)
+9. Reusable PHP templates: ✗ (Focus is on React/Vue/FastAPI)
+10. CRM: ? (Not confirmed)
+11. Collaborative: ✓ (Currently working on RBC AI team)
+12. Passion: ✓ (Active in building side projects like Rezzy and Viralens)
+
+Rating: 6/10
+Decision: NOT A FIT. While the candidate is a highly skilled engineer with excellent DevOps and frontend experience, they lack the specific deep expertise in WordPress VIP and high-scale PHP required for this role. Their current trajectory in AI and FastAPI makes them a better fit for other RBC Platform roles rather than this specific WordPress-centric position.
+
+================================================================================
+CONVERSATION COMPLETE
+================================================================================
