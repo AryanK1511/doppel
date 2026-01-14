@@ -1,1 +1,1 @@
-PROJECT_TITLE = "Viralens Backend Service"
+PROJECT_TITLE = "Doppel - AI Networking Platform"

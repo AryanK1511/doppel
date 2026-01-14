@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doppel - AI Networking Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 50%, #0f0f1a 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow: hidden;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        position: relative;
+      }
+
+      .game-wrapper {
+        position: relative;
+        padding: 4px;
+        background: linear-gradient(135deg, #7864ff 0%, #ff6480 50%, #ffb347 100%);
+        border-radius: 20px;
+        box-shadow:
+          0 0 60px rgba(120, 100, 255, 0.3),
+          0 0 100px rgba(255, 100, 128, 0.15),
+          inset 0 0 60px rgba(255, 255, 255, 0.05);
+      }
+
+      #game {
+        display: block;
+        border-radius: 16px;
+        background: #0f0f1a;
+      }
+
+      .info {
+        color: #6a6a8a;
+        font-size: 14px;
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
+
+      .info span {
+        color: #7864ff;
+        font-weight: 600;
+      }
+
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(120, 100, 255, 0.4);
+        border-radius: 50%;
+        animation: float 15s infinite;
+      }
+
+      .particle:nth-child(2n) {
+        background: rgba(255, 100, 128, 0.3);
+        animation-duration: 20s;
+      }
+
+      .particle:nth-child(3n) {
+        background: rgba(100, 180, 255, 0.3);
+        animation-duration: 25s;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) scale(1);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="particles">
+      <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+      <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+      <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+      <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+      <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+      <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+      <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+      <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+      <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+      <div class="particle" style="left: 15%; animation-delay: 3.5s;"></div>
+      <div class="particle" style="left: 85%; animation-delay: 0.5s;"></div>
+      <div class="particle" style="left: 45%; animation-delay: 2.8s;"></div>
+    </div>
+    <div class="container">
+      <div class="game-wrapper">
+        <canvas id="game"></canvas>
+      </div>
+      <p class="info">
+        <span>DOPPEL</span> - AI Networking Simulator
+      </p>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

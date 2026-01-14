@@ -1,12 +1,13 @@
 [project]
-name = "viralens-backend-service"
+name = "doppel-backend"
 version = "0.1.0"
-description = "Viralens Backend Service"
+description = "Doppel - AI Networking Platform Backend"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pydantic-settings>=2.10.1",
     "fastapi[standard]>=0.116.1",
+    "websockets>=13.0,<15.0",
     "colorama>=0.4.6",
     "httpx>=0.25.0",
     "python-dotenv>=1.1.1",

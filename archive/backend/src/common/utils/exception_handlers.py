@@ -61,6 +61,13 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 
 async def global_exception_handler(request: Request, exc: Exception):
+    try:
+        scope = getattr(request, "scope", {})
+        if isinstance(scope, dict) and scope.get("type") == "websocket":
+            raise exc
+    except (AttributeError, TypeError):
+        pass
+
     if isinstance(exc, BaseAPIException):
         logger.error(f"API Error: {str(exc)}")
         error_details = exc.details
@@ -90,4 +97,15 @@ def register_exception_handlers(app):
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(HTTPException, http_exception_handler)
     app.add_exception_handler(StarletteHTTPException, http_exception_handler)
-    app.add_exception_handler(Exception, global_exception_handler)
+    
+    async def safe_global_exception_handler(request: Request, exc: Exception):
+        try:
+            if hasattr(request, "scope"):
+                scope = getattr(request, "scope", {})
+                if isinstance(scope, dict) and scope.get("type") == "websocket":
+                    raise exc
+        except Exception:
+            raise exc
+        return await global_exception_handler(request, exc)
+    
+    app.add_exception_handler(Exception, safe_global_exception_handler)

@@ -22,16 +22,22 @@ class MongoDBClient:
             logger.info("Disconnected from MongoDB")
 
     @property
-    def voices(self):
+    def agents(self):
         if self.db is None:
             raise RuntimeError("MongoDB not connected. Call connect() first.")
-        return self.db.voices
+        return self.db.agents
 
     @property
-    def audios(self):
+    def conversations(self):
         if self.db is None:
             raise RuntimeError("MongoDB not connected. Call connect() first.")
-        return self.db.audios
+        return self.db.conversations
+
+    @property
+    def matches(self):
+        if self.db is None:
+            raise RuntimeError("MongoDB not connected. Call connect() first.")
+        return self.db.matches
 
 
 mongodb_client = MongoDBClient()
