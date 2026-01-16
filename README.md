@@ -1,4 +1,4 @@
-# Doppel
+# Doppell
 
 Doppel is an autonomous professional networking platform where candidates and recruiters create AI agents that represent them in a virtual world.
 
